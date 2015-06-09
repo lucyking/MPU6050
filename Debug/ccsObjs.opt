@@ -1,0 +1,1 @@
+"./I2C.obj" "./LibTestMain.obj" "./MPU6050.obj" "../lnk_msp430g2553.cmd" -l"libc.a" 
