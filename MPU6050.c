@@ -14,6 +14,8 @@ unsigned char gyroZFT = 0;
 unsigned char accelXFT = 0;
 unsigned char accelYFT = 0;
 unsigned char accelZFT = 0;
+unsigned char gyroDataNdx = 0;
+unsigned char gyroData[6];
 
 /*
  * Will attempt to read the MPU6050 WHO_AM_I register which contains the MPU6050's slave address.
@@ -161,4 +163,32 @@ unsigned char EnableMPUInterrupt(unsigned char inter)
 	}
 
 	return 0;
+}
+
+/*
+ * Will attempt to read the MPU6050_RA_INT_STATUS register and will return its value.
+ */
+unsigned char GetMPUIntStatus()
+{
+	ReadI2CByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_INT_STATUS, &byte);
+	return byte;
+}
+
+/*
+ * Will attemp to burst read the GRYO_OUT registers.
+ * Returns true if the read was a success and false otherwise.
+ */
+unsigned char GetGyroVals()
+{
+	for (gyroDataNdx = 0; gyroDataNdx < 6; gyroDataNdx++)
+	{
+		if (ReadI2CByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_GYRO_XOUT_H + gyroDataNdx, &byte))
+		{
+			gyroData[gyroDataNdx] = byte;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }

@@ -277,6 +277,7 @@
 #define MPU6050_INTERRUPT_DATA_RDY_BIT      0
 
 #define ENABLE_DATA_RDY_INTERRUPT	0x01
+#define MPU6050_DATA_RDY_INT		0x01
 
 // TODO: figure out what these actually do
 // UMPL source code is not very obivous
@@ -375,4 +376,6 @@ unsigned char GyroAccelXSelfTest(void);
 unsigned char GyroAccelYSelfTest(void);
 unsigned char GyroAccelZSelfTest(void);
 unsigned char EnableMPUInterrupt(unsigned char inter);
+unsigned char GetMPUIntStatus(void);
+unsigned char GetGyroVals(void);
 #endif /* MPU6050_H_ */

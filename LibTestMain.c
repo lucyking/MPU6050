@@ -51,5 +51,16 @@ int main(void)
 	else
 		P1OUT &= ~BIT0;
 
-	while (1);
+	while (1)
+	{
+		if (GetMPUIntStatus() == MPU6050_DATA_RDY_INT)
+		{
+			GetGyroVals();
+			P1OUT |= BIT0;
+		}
+		else
+		{
+			P1OUT &= ~BIT0;
+		}
+	}
 }
