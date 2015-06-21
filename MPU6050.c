@@ -7,17 +7,19 @@
 #include "MPU6050.h"
 #include "I2C.h"
 
+unsigned char byte;	// byte to send or receive
+
 /*
  * Will attempt to read the MPU6050 WHO_AM_I register which contains the MPU6050's slave address.
  * Returns true if the read succeeded with the correct return value and false otherwise.
  */
 unsigned char TestI2CConnection()
 {
-	unsigned char msg = 0;
+	byte = 0;
 
-	if (ReadI2CByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_WHO_AM_I, &msg))
+	if (ReadI2CByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_WHO_AM_I, &byte))
 	{
-		if (msg == 0x68)
+		if (byte == 0x68)
 		{
 			return 1;
 		}
@@ -32,7 +34,7 @@ unsigned char TestI2CConnection()
  */
 unsigned char EnableSleepMode(unsigned char en)
 {
-	unsigned char byte;
+	byte = 0;
 
 	// read the register to get the current value
 	if (ReadI2CByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_PWR_MGMT_1, &byte))
@@ -63,8 +65,8 @@ unsigned char EnableSleepMode(unsigned char en)
  */
 unsigned char MPUSelfTest()
 {
-	unsigned char cmd = 0b11100000;
-	if (WriteI2CBytes(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_GYRO_CONFIG, &cmd, 1))
+	byte = 0b11100000;
+	if (WriteI2CBytes(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_GYRO_CONFIG, &byte, 1))
 	{
 		return 1;
 	}
