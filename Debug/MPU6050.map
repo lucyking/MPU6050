@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v4.3.3                      
 ******************************************************************************
->> Linked Sat Jun 20 17:33:05 2015
+>> Linked Sun Jun 21 15:31:31 2015
 
 OUTPUT FILE NAME:   <MPU6050.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 0000c444
+ENTRY POINT SYMBOL: "_c_int00"  address: 0000c53a
 
 
 MEMORY CONFIGURATION
@@ -14,12 +14,12 @@ MEMORY CONFIGURATION
   SFR                   00000000   00000010  00000000  00000010  RWIX
   PERIPHERALS_8BIT      00000010   000000f0  00000000  000000f0  RWIX
   PERIPHERALS_16BIT     00000100   00000100  00000000  00000100  RWIX
-  RAM                   00000200   00000200  00000059  000001a7  RWIX
+  RAM                   00000200   00000200  0000005f  000001a1  RWIX
   INFOD                 00001000   00000040  00000000  00000040  RWIX
   INFOC                 00001040   00000040  00000000  00000040  RWIX
   INFOB                 00001080   00000040  00000000  00000040  RWIX
   INFOA                 000010c0   00000040  00000000  00000040  RWIX
-  FLASH                 0000c000   00003fe0  000004ec  00003af4  RWIX
+  FLASH                 0000c000   00003fe0  000005e2  000039fe  RWIX
   INT00                 0000ffe0   00000002  00000000  00000002  RWIX
   INT01                 0000ffe2   00000002  00000000  00000002  RWIX
   INT02                 0000ffe4   00000002  00000002  00000000  RWIX
@@ -46,53 +46,57 @@ section   page    origin      length       input sections
 .init_array 
 *          0    0000c000    00000000     UNINITIALIZED
 
-.data      0    00000200    00000008     UNINITIALIZED
+.data      0    00000200    0000000e     UNINITIALIZED
                   00000200    00000008     I2C.obj (.data)
+                  00000208    00000006     MPU6050.obj (.data)
 
 .TI.persistent 
 *          0    00000200    00000000     UNINITIALIZED
 
-.bss       0    00000208    00000001     UNINITIALIZED
-                  00000208    00000001     (.common:byte)
+.bss       0    0000020e    00000001     UNINITIALIZED
+                  0000020e    00000001     (.common:byte)
 
 .TI.noinit 
-*          0    00000208    00000000     UNINITIALIZED
+*          0    0000020e    00000000     UNINITIALIZED
 
 .stack     0    000003b0    00000050     UNINITIALIZED
                   000003b0    00000002     rts430_eabi.lib : boot.obj (.stack)
                   000003b2    0000004e     --HOLE--
 
-.text      0    0000c000    000004d0     
+.text      0    0000c000    000005c6     
                   0000c000    000000a0     I2C.obj (.text:ReadI2CByte)
                   0000c0a0    0000009a     I2C.obj (.text:WriteI2CBytes)
                   0000c13a    00000094     I2C.obj (.text:InitI2C)
-                  0000c1ce    00000076     I2C.obj (.text:StartTransmission)
-                  0000c244    0000006a     MPU6050.obj (.text:EnableSleepMode)
-                  0000c2ae    00000060     LibTestMain.obj (.text:main)
-                  0000c30e    0000005e     rts430_eabi.lib : copy_decompress_rle.obj (.text:__TI_decompress_rle_core)
-                  0000c36c    0000005e                     : autoinit.obj (.text:_auto_init)
-                  0000c3ca    0000002c     MPU6050.obj (.text:TestI2CConnection)
-                  0000c3f6    00000028     MPU6050.obj (.text:MPUSelfTest)
-                  0000c41e    00000026     MPU6050.obj (.text:GyroXSelfTest)
-                  0000c444    0000001a     rts430_eabi.lib : boot.obj (.text:_c_int00_noexit)
-                  0000c45e    00000014                     : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
-                  0000c472    00000012                     : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
-                  0000c484    00000012                     : memcpy.obj (.text:memcpy)
-                  0000c496    00000010                     : epilog.obj (.text)
-                  0000c4a6    0000000a     I2C.obj (.text:I2CTimerISR)
-                  0000c4b0    00000006     I2C.obj (.text:GetI2CTime)
-                  0000c4b6    00000006     I2C.obj (.text:SetI2CTime)
-                  0000c4bc    00000006     rts430_eabi.lib : isr_trap.obj (.text:__TI_ISR_TRAP)
-                  0000c4c2    00000006                     : copy_decompress_rle.obj (.text:decompress:rle24:__TI_decompress_rle24)
-                  0000c4c8    00000004                     : pre_init.obj (.text:_system_pre_init)
-                  0000c4cc    00000004                     : exit.obj (.text:abort)
+                  0000c1ce    00000090     LibTestMain.obj (.text:main)
+                  0000c25e    00000076     I2C.obj (.text:StartTransmission)
+                  0000c2d4    0000006a     MPU6050.obj (.text:EnableSleepMode)
+                  0000c33e    0000005e     rts430_eabi.lib : copy_decompress_rle.obj (.text:__TI_decompress_rle_core)
+                  0000c39c    0000005e                     : autoinit.obj (.text:_auto_init)
+                  0000c3fa    0000003c     MPU6050.obj (.text:EnableMPUInterrupt)
+                  0000c436    0000003c     MPU6050.obj (.text:MPUSelfTest)
+                  0000c472    00000034     MPU6050.obj (.text:GyroAccelXSelfTest)
+                  0000c4a6    00000034     MPU6050.obj (.text:GyroAccelYSelfTest)
+                  0000c4da    00000034     MPU6050.obj (.text:GyroAccelZSelfTest)
+                  0000c50e    0000002c     MPU6050.obj (.text:TestI2CConnection)
+                  0000c53a    0000001a     rts430_eabi.lib : boot.obj (.text:_c_int00_noexit)
+                  0000c554    00000014                     : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
+                  0000c568    00000012                     : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
+                  0000c57a    00000012                     : memcpy.obj (.text:memcpy)
+                  0000c58c    00000010                     : epilog.obj (.text)
+                  0000c59c    0000000a     I2C.obj (.text:I2CTimerISR)
+                  0000c5a6    00000006     I2C.obj (.text:GetI2CTime)
+                  0000c5ac    00000006     I2C.obj (.text:SetI2CTime)
+                  0000c5b2    00000006     rts430_eabi.lib : isr_trap.obj (.text:__TI_ISR_TRAP)
+                  0000c5b8    00000006                     : copy_decompress_rle.obj (.text:decompress:rle24:__TI_decompress_rle24)
+                  0000c5be    00000004                     : pre_init.obj (.text:_system_pre_init)
+                  0000c5c2    00000004                     : exit.obj (.text:abort)
 
-.cinit     0    0000c4d0    0000001c     
-                  0000c4d0    00000009     (.cinit..data.load) [load image, compression = rle]
-                  0000c4d9    00000001     --HOLE-- [fill = 0]
-                  0000c4da    00000006     (__TI_handler_table)
-                  0000c4e0    00000004     (.cinit..bss.load) [load image, compression = zero_init]
-                  0000c4e4    00000008     (__TI_cinit_table)
+.cinit     0    0000c5c6    0000001c     
+                  0000c5c6    00000009     (.cinit..data.load) [load image, compression = rle]
+                  0000c5cf    00000001     --HOLE-- [fill = 0]
+                  0000c5d0    00000006     (__TI_handler_table)
+                  0000c5d6    00000004     (.cinit..bss.load) [load image, compression = zero_init]
+                  0000c5da    00000008     (__TI_cinit_table)
 
 PORT1      0    0000ffe4    00000002     
                   0000ffe4    00000002     rts430_eabi.lib : int02.obj (.int02)
@@ -143,14 +147,14 @@ NMI        0    0000fffc    00000002
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 0000c4e4 records: 2, size/record: 4, table size: 8
-	.data: load addr=0000c4d0, load size=00000009 bytes, run addr=00000200, run size=00000008 bytes, compression=rle
-	.bss: load addr=0000c4e0, load size=00000004 bytes, run addr=00000208, run size=00000001 bytes, compression=zero_init
+__TI_cinit_table @ 0000c5da records: 2, size/record: 4, table size: 8
+	.data: load addr=0000c5c6, load size=00000009 bytes, run addr=00000200, run size=0000000e bytes, compression=rle
+	.bss: load addr=0000c5d6, load size=00000004 bytes, run addr=0000020e, run size=00000001 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 0000c4da records: 3, size/record: 2, table size: 6
+__TI_handler_table @ 0000c5d0 records: 3, size/record: 2, table size: 6
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_rle24
 	index: 2, handler: __TI_decompress_none
@@ -170,7 +174,7 @@ address    name
 00000057   BCSCTL1
 00000058   BCSCTL2
 00000053   BCSCTL3
-0000c4cc   C$$EXIT
+0000c5c2   C$$EXIT
 00000059   CACTL1
 0000005a   CACTL2
 000010fb   CALBC1_12MHZ
@@ -183,19 +187,22 @@ address    name
 000010fc   CALDCO_8MHZ
 0000005b   CAPD
 00000056   DCOCTL
-0000c244   EnableSleepMode
+0000c3fa   EnableMPUInterrupt
+0000c2d4   EnableSleepMode
 00000128   FCTL1
 0000012a   FCTL2
 0000012c   FCTL3
-0000c4b0   GetI2CTime
-0000c41e   GyroXSelfTest
-0000c4a6   I2CTimerISR
+0000c5a6   GetI2CTime
+0000c472   GyroAccelXSelfTest
+0000c4a6   GyroAccelYSelfTest
+0000c4da   GyroAccelZSelfTest
+0000c59c   I2CTimerISR
 00000000   IE1
 00000001   IE2
 00000002   IFG1
 00000003   IFG2
 0000c13a   InitI2C
-0000c3f6   MPUSelfTest
+0000c436   MPUSelfTest
 00000022   P1DIR
 00000025   P1IE
 00000024   P1IES
@@ -221,8 +228,8 @@ address    name
 0000001b   P3SEL
 00000043   P3SEL2
 0000c000   ReadI2CByte
-0000c4b6   SetI2CTime
-0000c1ce   StartTransmission
+0000c5ac   SetI2CTime
+0000c25e   StartTransmission
 00000172   TA0CCR0
 00000174   TA0CCR1
 00000176   TA0CCR2
@@ -246,7 +253,7 @@ address    name
 000010c0   TLV_CHECKSUM
 000010f7   TLV_DCO_30_LEN
 000010f6   TLV_DCO_30_TAG
-0000c3ca   TestI2CConnection
+0000c50e   TestI2CConnection
 0000005d   UCA0ABCTL
 00000062   UCA0BR0
 00000063   UCA0BR1
@@ -272,16 +279,16 @@ address    name
 0000c0a0   WriteI2CBytes
 00000400   __STACK_END
 00000050   __STACK_SIZE
-0000c4e4   __TI_CINIT_Base
-0000c4ec   __TI_CINIT_Limit
-0000c4da   __TI_Handler_Table_Base
-0000c4e0   __TI_Handler_Table_Limit
+0000c5da   __TI_CINIT_Base
+0000c5e2   __TI_CINIT_Limit
+0000c5d0   __TI_Handler_Table_Base
+0000c5d6   __TI_Handler_Table_Limit
 UNDEFED    __TI_INITARRAY_Base
 UNDEFED    __TI_INITARRAY_Limit
-0000c4bc   __TI_ISR_TRAP
+0000c5b2   __TI_ISR_TRAP
 00000001   __TI_args_main
-0000c472   __TI_decompress_none
-0000c4c2   __TI_decompress_rle24
+0000c568   __TI_decompress_none
+0000c5b8   __TI_decompress_rle24
 00000001   __TI_exit
 0000ffe4   __TI_int02
 0000ffe6   __TI_int03
@@ -295,33 +302,39 @@ UNDEFED    __TI_INITARRAY_Limit
 0000fff8   __TI_int12
 0000fffa   __TI_int13
 0000fffc   __TI_int14
-0000c45e   __TI_zero_init
+0000c554   __TI_zero_init
 ffffffff   __binit__
 ffffffff   __c_args__
-0000c4a2   __mspabi_func_epilog_1
-0000c4a0   __mspabi_func_epilog_2
-0000c49e   __mspabi_func_epilog_3
-0000c49c   __mspabi_func_epilog_4
-0000c49a   __mspabi_func_epilog_5
-0000c498   __mspabi_func_epilog_6
-0000c496   __mspabi_func_epilog_7
-0000c36c   _auto_init
-0000c444   _c_int00
-0000c444   _c_int00_noexit
+0000c598   __mspabi_func_epilog_1
+0000c596   __mspabi_func_epilog_2
+0000c594   __mspabi_func_epilog_3
+0000c592   __mspabi_func_epilog_4
+0000c590   __mspabi_func_epilog_5
+0000c58e   __mspabi_func_epilog_6
+0000c58c   __mspabi_func_epilog_7
+0000c39c   _auto_init
+0000c53a   _c_int00
+0000c53a   _c_int00_noexit
 0000fffe   _reset_vector
 000003b0   _stack
-0000c4c8   _system_pre_init
-0000c4cc   abort
+0000c5be   _system_pre_init
+0000c5c2   abort
+0000020b   accelXFT
+0000020c   accelYFT
+0000020d   accelZFT
 ffffffff   binit
-00000208   byte
+0000020e   byte
+00000208   gyroXFT
+00000209   gyroYFT
+0000020a   gyroZFT
 00000200   i2cIsrRxByte
 00000201   i2cIsrRxByteReceived
 00000203   i2cIsrTxByte
 00000202   i2cRxExpectingMoreData
 00000206   i2cTime
 00000204   i2cTxDataToSend
-0000c2ae   main
-0000c484   memcpy
+0000c1ce   main
+0000c57a   memcpy
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -422,7 +435,13 @@ address    name
 00000203   i2cIsrTxByte
 00000204   i2cTxDataToSend
 00000206   i2cTime
-00000208   byte
+00000208   gyroXFT
+00000209   gyroYFT
+0000020a   gyroZFT
+0000020b   accelXFT
+0000020c   accelYFT
+0000020d   accelZFT
+0000020e   byte
 000003b0   _stack
 00000400   __STACK_END
 000010c0   TLV_CHECKSUM
@@ -441,37 +460,40 @@ address    name
 0000c000   ReadI2CByte
 0000c0a0   WriteI2CBytes
 0000c13a   InitI2C
-0000c1ce   StartTransmission
-0000c244   EnableSleepMode
-0000c2ae   main
-0000c36c   _auto_init
-0000c3ca   TestI2CConnection
-0000c3f6   MPUSelfTest
-0000c41e   GyroXSelfTest
-0000c444   _c_int00
-0000c444   _c_int00_noexit
-0000c45e   __TI_zero_init
-0000c472   __TI_decompress_none
-0000c484   memcpy
-0000c496   __mspabi_func_epilog_7
-0000c498   __mspabi_func_epilog_6
-0000c49a   __mspabi_func_epilog_5
-0000c49c   __mspabi_func_epilog_4
-0000c49e   __mspabi_func_epilog_3
-0000c4a0   __mspabi_func_epilog_2
-0000c4a2   __mspabi_func_epilog_1
-0000c4a6   I2CTimerISR
-0000c4b0   GetI2CTime
-0000c4b6   SetI2CTime
-0000c4bc   __TI_ISR_TRAP
-0000c4c2   __TI_decompress_rle24
-0000c4c8   _system_pre_init
-0000c4cc   C$$EXIT
-0000c4cc   abort
-0000c4da   __TI_Handler_Table_Base
-0000c4e0   __TI_Handler_Table_Limit
-0000c4e4   __TI_CINIT_Base
-0000c4ec   __TI_CINIT_Limit
+0000c1ce   main
+0000c25e   StartTransmission
+0000c2d4   EnableSleepMode
+0000c39c   _auto_init
+0000c3fa   EnableMPUInterrupt
+0000c436   MPUSelfTest
+0000c472   GyroAccelXSelfTest
+0000c4a6   GyroAccelYSelfTest
+0000c4da   GyroAccelZSelfTest
+0000c50e   TestI2CConnection
+0000c53a   _c_int00
+0000c53a   _c_int00_noexit
+0000c554   __TI_zero_init
+0000c568   __TI_decompress_none
+0000c57a   memcpy
+0000c58c   __mspabi_func_epilog_7
+0000c58e   __mspabi_func_epilog_6
+0000c590   __mspabi_func_epilog_5
+0000c592   __mspabi_func_epilog_4
+0000c594   __mspabi_func_epilog_3
+0000c596   __mspabi_func_epilog_2
+0000c598   __mspabi_func_epilog_1
+0000c59c   I2CTimerISR
+0000c5a6   GetI2CTime
+0000c5ac   SetI2CTime
+0000c5b2   __TI_ISR_TRAP
+0000c5b8   __TI_decompress_rle24
+0000c5be   _system_pre_init
+0000c5c2   C$$EXIT
+0000c5c2   abort
+0000c5d0   __TI_Handler_Table_Base
+0000c5d6   __TI_Handler_Table_Limit
+0000c5da   __TI_CINIT_Base
+0000c5e2   __TI_CINIT_Limit
 0000ffe4   __TI_int02
 0000ffe6   __TI_int03
 0000ffea   __TI_int05
@@ -491,4 +513,4 @@ ffffffff   binit
 UNDEFED    __TI_INITARRAY_Base
 UNDEFED    __TI_INITARRAY_Limit
 
-[162 symbols]
+[171 symbols]

@@ -25,7 +25,9 @@
 #define MPU6050_RA_YA_OFFS_L_TC     0x09
 #define MPU6050_RA_ZA_OFFS_H        0x0A //[15:0] ZA_OFFS
 #define MPU6050_RA_ZA_OFFS_L_TC     0x0B
-#define MPU6050_RA_XG_SELF_TEST		0x0D
+#define MPU6050_RA_X_SELF_TEST		0x0D
+#define MPU6050_RA_Y_SELF_TEST		0x0E
+#define MPU6050_RA_Z_SELF_TEST		0x0F
 #define MPU6050_RA_XG_OFFS_USRH     0x13 //[15:0] XG_OFFS_USR
 #define MPU6050_RA_XG_OFFS_USRL     0x14
 #define MPU6050_RA_YG_OFFS_USRH     0x15 //[15:0] YG_OFFS_USR
@@ -274,6 +276,8 @@
 #define MPU6050_INTERRUPT_DMP_INT_BIT       1
 #define MPU6050_INTERRUPT_DATA_RDY_BIT      0
 
+#define ENABLE_DATA_RDY_INTERRUPT	0x01
+
 // TODO: figure out what these actually do
 // UMPL source code is not very obivous
 #define MPU6050_DMPINT_5_BIT            5
@@ -367,6 +371,8 @@
 unsigned char TestI2CConnection(void);
 unsigned char MPUSelfTest(void);
 unsigned char EnableSleepMode(unsigned char en);
-unsigned char GyroXSelfTest(unsigned char *gyroXFT);
-
+unsigned char GyroAccelXSelfTest(void);
+unsigned char GyroAccelYSelfTest(void);
+unsigned char GyroAccelZSelfTest(void);
+unsigned char EnableMPUInterrupt(unsigned char inter);
 #endif /* MPU6050_H_ */

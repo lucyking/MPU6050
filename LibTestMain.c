@@ -31,8 +31,22 @@ int main(void)
 	else
 		P1OUT &= ~BIT0;
 
-	unsigned char gyroXFT = 0;
-	if (GyroXSelfTest(&gyroXFT))
+	if (GyroAccelXSelfTest())
+		P1OUT |= BIT0;
+	else
+		P1OUT &= ~BIT0;
+
+	if (GyroAccelYSelfTest())
+		P1OUT |= BIT0;
+	else
+		P1OUT &= ~BIT0;
+
+	if (GyroAccelZSelfTest())
+		P1OUT |= BIT0;
+	else
+		P1OUT &= ~BIT0;
+
+	if (EnableMPUInterrupt(ENABLE_DATA_RDY_INTERRUPT))
 		P1OUT |= BIT0;
 	else
 		P1OUT &= ~BIT0;
