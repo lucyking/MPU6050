@@ -11,14 +11,6 @@
 
 int main(void)
 {
-	// set up clock registers
-    WDTCTL 	= 	WDTPW | WDTHOLD;				// Stop watchdog timer
-	DCOCTL	&=	0;								// reset DCO
-	DCOCTL	|=	CALDCO_16MHZ;
-	BCSCTL1	&=	0;								// reset BCSCTL1
-	BCSCTL1	|=	CALBC1_16MHZ;
-	BCSCTL2	&=	0;								// reset BCSCTL2
-	BCSCTL2	|=	SELM_0	|	DIVM_0	|	DIVS_0;	// MCLK and SMCLK run from the DCO @ 16 MHz
 	P1DIR |= BIT0;
 	P1OUT &= ~BIT0;
 

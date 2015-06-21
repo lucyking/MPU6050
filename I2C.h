@@ -15,4 +15,6 @@ unsigned char StartTransmission(unsigned char slaveAddr, unsigned char mpuRegAdd
 unsigned char WriteI2CBytes(unsigned char slaveAddr, unsigned char mpuRegAddr, unsigned char *txBytes, unsigned char len);
 unsigned char ReadI2CBytes(unsigned char slaveAddr, unsigned char mpuRegAddr, unsigned char *rxBytes, unsigned char len);
 unsigned char ReadI2CByte(unsigned char slaveAddr, unsigned char mpuRegAddr, unsigned char *rxBytes);
+void SetI2CTime(unsigned int val);
+unsigned int GetI2CTime();
 #endif /* I2C_H_ */
