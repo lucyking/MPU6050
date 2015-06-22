@@ -56,6 +56,7 @@ int main(void)
 		if (GetMPUIntStatus() == MPU6050_DATA_RDY_INT)
 		{
 			GetGyroVals();
+			GetAccelVals();
 			P1OUT |= BIT0;
 		}
 		else

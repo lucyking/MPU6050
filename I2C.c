@@ -55,7 +55,7 @@ void InitI2C()
 	UCB0CTL1 |=	UCSSEL_2 + UCMST;			// SMCLK, I2C Master mode
 	UCB0CTL1 &= ~UCTXNACK;
 	UCB0BR1	 =	0;
-	UCB0BR0	 =	160;						// 16,000,000 / 160 = 100,000 Hz
+	UCB0BR0	 =	40;						// 16,000,000 / 40 = 400,000 Hz
 	UCB0CTL1 &=	~UCSWRST;					// exit reset state
 
 	// set up timer A so we can use it as the I2C timer

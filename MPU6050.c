@@ -16,6 +16,15 @@ unsigned char accelYFT = 0;
 unsigned char accelZFT = 0;
 unsigned char gyroDataNdx = 0;
 unsigned char gyroData[6];
+unsigned char accelDataNdx = 0;
+unsigned char accelData[6];
+
+unsigned int curGyroXVal = 0;
+unsigned int curGyroYVal = 0;
+unsigned int curGyroZVal = 0;
+unsigned int curAccelXVal = 0;
+unsigned int curAccelYVal = 0;
+unsigned int curAccelZVal = 0;
 
 /*
  * Will attempt to read the MPU6050 WHO_AM_I register which contains the MPU6050's slave address.
@@ -178,6 +187,7 @@ unsigned char GetMPUIntStatus()
  * Will attemp to burst read the GRYO_OUT registers.
  * Returns true if the read was a success and false otherwise.
  */
+#define _250_DEG_P_S_RESOLUITION	0.00381476
 unsigned char GetGyroVals()
 {
 	for (gyroDataNdx = 0; gyroDataNdx < 6; gyroDataNdx++)
@@ -191,4 +201,51 @@ unsigned char GetGyroVals()
 			return 0;
 		}
 	}
+
+	curGyroXVal = gyroData[0];
+	curGyroXVal = (curGyroXVal << 8) & 0xFF00;
+	curGyroXVal |= gyroData[1];
+
+	curGyroYVal = gyroData[2];
+	curGyroYVal = (curGyroYVal << 8) & 0xFF00;
+	curGyroYVal |= gyroData[3];
+
+	curGyroZVal = gyroData[4];
+	curGyroZVal = (curGyroZVal << 8) & 0xFF00;
+	curGyroZVal |= gyroData[5];
+
+	return 1;
+}
+
+/*
+ * Will attempt to burst read the ACCEL_OUT registers
+ * Returns true if the read was a success and false otherwise
+ */
+unsigned char GetAccelVals()
+{
+	for (accelDataNdx = 0; accelDataNdx < 6; accelDataNdx++)
+	{
+		if (ReadI2CByte(MPU6050_DEFAULT_ADDRESS, MPU6050_RA_ACCEL_XOUT_H + accelDataNdx, &byte))
+		{
+			accelData[accelDataNdx] = byte;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	curAccelXVal = accelData[0];
+	curAccelXVal = (curAccelXVal << 8) & 0xFF00;
+	curAccelXVal |= accelData[1];
+
+	curAccelYVal = accelData[2];
+	curAccelYVal = (curAccelYVal << 8) & 0xFF00;
+	curAccelYVal |= accelData[3];
+
+	curAccelZVal = accelData[4];
+	curAccelZVal = (curAccelZVal << 8) & 0xFF00;
+	curAccelZVal |= accelData[5];
+
+	return 1;
 }

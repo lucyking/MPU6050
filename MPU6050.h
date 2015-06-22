@@ -378,4 +378,5 @@ unsigned char GyroAccelZSelfTest(void);
 unsigned char EnableMPUInterrupt(unsigned char inter);
 unsigned char GetMPUIntStatus(void);
 unsigned char GetGyroVals(void);
+unsigned char GetAccelVals(void);
 #endif /* MPU6050_H_ */
